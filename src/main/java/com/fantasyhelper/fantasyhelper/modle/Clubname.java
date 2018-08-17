@@ -11,6 +11,7 @@ public class Clubname {
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
+
   @Column(name = "clubName", unique = true)
   private String clubName;
 
