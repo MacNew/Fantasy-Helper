@@ -10,15 +10,18 @@ import java.util.Collection;
 public class RoleService {
 
     public  boolean checkRoleOfUser(final  UserDetails userDetails) {
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_USER"));
-        return  authorized;
+        return  myCollectionGrantedAuthority(userDetails).contains(simpleGrantedAurity("ROLE_USER"));
     }
 
     public  boolean checkRoleOfAdmin(final  UserDetails userDetails) {
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        return  authorized;
+        return myCollectionGrantedAuthority(userDetails).contains(simpleGrantedAurity("ROLE_ADMIN"));
+    }
+
+    public Collection<? extends GrantedAuthority> myCollectionGrantedAuthority(final  UserDetails userDetails) {
+        return userDetails.getAuthorities();
+    }
+    public SimpleGrantedAuthority simpleGrantedAurity(String role) {
+        return new SimpleGrantedAuthority(role);
     }
 
 }
