@@ -1,7 +1,7 @@
 package com.fantasyhelper.fantasyhelper.Service;
 
 import com.fantasyhelper.fantasyhelper.Exception.MyCustomException;
-import com.fantasyhelper.fantasyhelper.modle.Clubname;
+import com.fantasyhelper.fantasyhelper.modle.ClubName;
 import com.fantasyhelper.fantasyhelper.repository.ClubsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import java.util.List;
 public class ClubService {
     @Autowired
     ClubsRepository clubsRepository;
-    public List<Clubname> getCurrentSeasonClubs() {
+    public List<ClubName> getCurrentSeasonClubs() {
         return  clubsRepository.findAll();
     }
 
-    public boolean addClubs(Clubname clubname) throws MyCustomException {
+    public boolean addClubs(ClubName clubname) throws MyCustomException {
         try {
-            Clubname instance =  clubsRepository.save(clubname);
+            ClubName instance =  clubsRepository.save(clubname);
             if (instance != null) {
                 return  true;
             } else {
@@ -27,6 +27,5 @@ public class ClubService {
         }catch (Exception e) {
             throw  new MyCustomException("This club is alrady exists");
         }
-
     }
 }
