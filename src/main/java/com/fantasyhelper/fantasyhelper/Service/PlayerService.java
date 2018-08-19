@@ -4,8 +4,8 @@ import com.fantasyhelper.fantasyhelper.Exception.MyCustomException;
 import com.fantasyhelper.fantasyhelper.modle.PlayerList;
 import com.fantasyhelper.fantasyhelper.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class PlayerService {
@@ -24,5 +24,9 @@ public class PlayerService {
         }catch (Exception e) {
            throw new MyCustomException("Player Alrady Exists");
         }
+    }
+
+    public List<PlayerList> getPlayerList(Integer clubId) {
+        return playerRepository.findByClubid(clubId);
     }
 }

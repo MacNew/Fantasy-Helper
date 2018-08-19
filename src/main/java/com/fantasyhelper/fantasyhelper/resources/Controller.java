@@ -23,11 +23,7 @@ public class Controller {
     RoleService roleService;
     @GetMapping("currentseason/get/clubs")
     public ResponseEntity getAll(@AuthenticationPrincipal final UserDetails userDetails) {
-        if (roleService.checkRoleOfUser(userDetails)) {
-            return new ResponseEntity(clubService.getCurrentSeasonClubs(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity("You are not a user", HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity(clubService.getCurrentSeasonClubs(), HttpStatus.OK);
     }
 
     @RequestMapping("insert/clubs")
@@ -52,5 +48,11 @@ public class Controller {
       }
         throw new MyCustomException("Sorry you Aere not an Admin");
     }
+
+    @GetMapping("get/player/{club_id}")
+    public ResponseEntity getPlayersList(@AuthenticationPrincipal final  UserDetails userDetails, @PathVariable("club_id") Integer clubId) throws MyCustomException{
+        return new ResponseEntity(playerService.getPlayerList(clubId),HttpStatus.OK);
+    }
+
 
 }

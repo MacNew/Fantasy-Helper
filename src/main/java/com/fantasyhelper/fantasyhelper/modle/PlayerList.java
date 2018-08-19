@@ -1,7 +1,5 @@
 package com.fantasyhelper.fantasyhelper.modle;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "playerlist")
@@ -41,18 +39,5 @@ public class PlayerList {
     public void setClubid(Integer clubid) {
         this.clubid = clubid;
     }
-
-    public List<ClubName> getClubNameList() {
-        return clubNameList;
-    }
-
-    public void setClubNameList(List<ClubName> clubNameList) {
-        this.clubNameList = clubNameList;
-    }
-
-    ///////////////////////////////////////
-    @OneToMany
-    @JoinColumn(name = "club_id")
-    List<ClubName> clubNameList = new ArrayList<ClubName>();
 
 }
