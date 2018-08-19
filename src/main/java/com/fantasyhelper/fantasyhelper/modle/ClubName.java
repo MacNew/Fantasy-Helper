@@ -6,9 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="clubname")
-public class Clubname {
+public class ClubName {
   @Id
-  @Column(name = "id")
+  @Column(name = "club_id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
