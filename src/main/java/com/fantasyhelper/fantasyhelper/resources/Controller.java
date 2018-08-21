@@ -23,12 +23,16 @@ public class Controller {
     RoleService roleService;
     @GetMapping("currentseason/get/clubs")
     public ResponseEntity getAll(@AuthenticationPrincipal final UserDetails userDetails) {
-        return new ResponseEntity(clubService.getCurrentSeasonClubs(), HttpStatus.OK);
+         if (roleService.isUserOrAdmin(userDetails)) {
+             return new ResponseEntity(clubService.getCurrentSeasonClubs(), HttpStatus.OK);
+         } else {
+             return new ResponseEntity("You are not an User", HttpStatus.UNAUTHORIZED);
+         }
     }
 
-    @RequestMapping("insert/clubs")
+    @PostMapping("insert/clubs")
     public ResponseEntity addClubs(@RequestBody ClubName clubname, @AuthenticationPrincipal final UserDetails userDetails) throws MyCustomException {
-        if (roleService.checkRoleOfAdmin(userDetails)) {
+        if (roleService.isAdmin(userDetails)) {
             if(clubService.addClubs(clubname)) {
                 return new ResponseEntity(clubname, HttpStatus.OK);
             }
@@ -41,7 +45,7 @@ public class Controller {
     @PostMapping("insert/player")
     public ResponseEntity addPlayers(@RequestBody PlayerList player,
                                       @AuthenticationPrincipal final UserDetails userDetails) throws MyCustomException {
-      if (roleService.checkRoleOfAdmin(userDetails)) {
+      if (roleService.isAdmin(userDetails)) {
           if (playerService.addPlayer(player)) {
               return new ResponseEntity(player, HttpStatus.OK);
           }
@@ -51,8 +55,35 @@ public class Controller {
 
     @GetMapping("get/player/{club_id}")
     public ResponseEntity getPlayersList(@AuthenticationPrincipal final  UserDetails userDetails, @PathVariable("club_id") Integer clubId) throws MyCustomException{
-        return new ResponseEntity(playerService.getPlayerList(clubId),HttpStatus.OK);
+        if (roleService.isUserOrAdmin(userDetails)) {
+            return new ResponseEntity(playerService.getPlayerList(clubId),HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Sorry you are not an User", HttpStatus.OK);
+        }
     }
 
+    @GetMapping("admin")
+    public ResponseEntity isAdmin(@AuthenticationPrincipal final  UserDetails userDetails) {
+         if (roleService.isAdmin(userDetails)) {
+             return new ResponseEntity("Yes you are Admin", HttpStatus.OK);
+         }
+         return new ResponseEntity("Sorry you are not a admin", HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("useroradmin")
+    public ResponseEntity isuserOrAdmin(@AuthenticationPrincipal final  UserDetails userDetails) {
+        if (roleService.isUserOrAdmin(userDetails)) {
+            return new ResponseEntity("Yes you are either user or Admin", HttpStatus.OK);
+        }
+        return new ResponseEntity("Sorry you are not a user or Admin", HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("user")
+    public ResponseEntity isUser(@AuthenticationPrincipal final  UserDetails userDetails) {
+        if (roleService.isUser(userDetails)) {
+            return new ResponseEntity("yes you are user", HttpStatus.OK);
+        }
+        return new ResponseEntity("Sorry you are not a user ", HttpStatus.UNAUTHORIZED);
+    }
 
 }
