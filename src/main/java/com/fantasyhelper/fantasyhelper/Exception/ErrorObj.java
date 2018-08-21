@@ -7,8 +7,6 @@ public class ErrorObj {
     String erroMessage;
     String statusCode;
 
-
-
     public String getErroMessage() {
         return erroMessage;
     }

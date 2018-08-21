@@ -1,4 +1,4 @@
-package com.fantasyhelper.fantasyhelper.config;
+package com.fantasyhelper.fantasyhelper.config.security;
 import com.fantasyhelper.fantasyhelper.Exception.MyCustomException;
 import com.fantasyhelper.fantasyhelper.Exception.ErrorObj;
 import org.springframework.beans.factory.annotation.Autowired;
