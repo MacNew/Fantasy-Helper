@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("fantasyhelper/")
+@RequestMapping("fantasyhelper/api/")
 public class Controller {
     @Autowired
     ClubService clubService;

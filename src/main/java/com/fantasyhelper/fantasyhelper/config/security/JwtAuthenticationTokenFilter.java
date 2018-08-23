@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
      public JwtAuthenticationTokenFilter() {
-        super("/fantasyhelper/**");
+        super("/fantasyhelper/api/**");
     }
 
     @Override

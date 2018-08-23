@@ -40,7 +40,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
      @Override
      protected void configure(HttpSecurity http) throws Exception {
-       http.csrf().disable().authorizeRequests().antMatchers("/fantasyhelper/**").authenticated().
+       http.csrf().disable().authorizeRequests().antMatchers("/fantasyhelper/api/**").authenticated().
                and().
                exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint())
                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

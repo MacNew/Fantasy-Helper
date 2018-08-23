@@ -3,14 +3,18 @@ package com.fantasyhelper.fantasyhelper.resources;
 import com.fantasyhelper.fantasyhelper.config.StaticConstants;
 import com.fantasyhelper.fantasyhelper.config.security.JwtGenerator;
 import com.fantasyhelper.fantasyhelper.config.modle.JwtUser;
+import com.fantasyhelper.fantasyhelper.modle.JwtToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("token/")
+@RequestMapping("fantasyhelper/")
 public class TokenController {
     private JwtGenerator jwtGenerator;
+    @Autowired
+    JwtToken jwtToken;
     public TokenController(JwtGenerator jwtGenerator) {
         this.jwtGenerator = jwtGenerator;
     }
@@ -20,7 +24,8 @@ public class TokenController {
         if (role != null) {
             if (TokenController.checkUserNameAndRole(jwtUser, role)) {
                 jwtUser.setRole(role);
-                return new ResponseEntity(jwtGenerator.generate(jwtUser), HttpStatus.OK);
+                jwtToken.setToken(jwtGenerator.generate(jwtUser));
+                return new ResponseEntity(jwtToken, HttpStatus.OK);
             }
         }
             return new ResponseEntity("Un authorized",HttpStatus.UNAUTHORIZED);
