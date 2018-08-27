@@ -11,6 +11,27 @@ public class ClubName {
   @Column(name = "club_id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
+  @Column(name = "filedownloadLink")
+  private String filedownloadLink;
+
+    public String getFiledownloadLink() {
+        return filedownloadLink;
+    }
+
+    public void setFiledownloadLink(String filedownloadLink) {
+        this.filedownloadLink = filedownloadLink;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    @Column(name = "filepath")
+  private String filepath;
 
   @Column(name = "clubName", unique = true)
   private String clubName;
