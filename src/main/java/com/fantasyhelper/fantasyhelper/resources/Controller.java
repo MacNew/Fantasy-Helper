@@ -37,7 +37,7 @@ public class Controller {
                 return new ResponseEntity(clubname, HttpStatus.OK);
             }
         }else {
-            throw new MyCustomException("Sorry you Aere not an Admin");
+            throw new MyCustomException("Sorry you Are not an Admin");
         }
         return new ResponseEntity("Error",HttpStatus.INTERNAL_SERVER_ERROR);
     }

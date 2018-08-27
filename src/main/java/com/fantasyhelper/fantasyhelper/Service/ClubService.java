@@ -25,7 +25,7 @@ public class ClubService {
                 return  false;
             }
         }catch (Exception e) {
-            throw  new MyCustomException("This club is alrady exists");
+            throw  new MyCustomException(clubname.getClubName() + " alrady exists");
         }
     }
 }
