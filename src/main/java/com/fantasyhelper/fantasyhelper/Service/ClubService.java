@@ -51,6 +51,7 @@ public class ClubService {
                     .path(fileName)
                     .toUriString());
             clubname.setFilepath(this.fileSotageLocation.resolve(fileName).normalize().toString());
+            clubname.setFileName(fileName);
             ClubName instance = clubsRepository.save(clubname);
             if (instance != null) {
                 return fileName; //String.valueOf(this.fileSotageLocation.resolve(fileName).normalize());

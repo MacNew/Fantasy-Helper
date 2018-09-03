@@ -64,7 +64,7 @@ public class Controller {
     }
 
     @GetMapping("/downloadFile/{fileName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws MyCustomException{
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws MyCustomException {
         Resource resource = clubService.loadFileAsResource(fileName);
         String contentType = null;
         try {
