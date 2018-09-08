@@ -8,11 +8,8 @@ public class PlayerList {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    ///////////////////////////////////////////////
     @Column(name = "playerName", unique = true, nullable = true)
     private String playerName;
-    //////////////////////////////////////////////
-
     @Column(name="club_id", nullable = false)
     Integer clubid;
 

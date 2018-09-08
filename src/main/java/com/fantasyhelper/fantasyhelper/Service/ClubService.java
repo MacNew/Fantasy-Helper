@@ -78,8 +78,8 @@ public class ClubService {
         }
     }
 
-    public String getfileName(int clubId) {
-        return clubsRepository.findById(clubId).getFileName();
+    public ClubName getfileName(int clubId) {
+        return clubsRepository.findById(clubId);
     }
 
 }
