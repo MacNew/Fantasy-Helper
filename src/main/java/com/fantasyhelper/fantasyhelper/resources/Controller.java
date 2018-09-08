@@ -62,6 +62,29 @@ public class Controller {
         return new ResponseEntity("Error",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @RequestMapping(value ="insert/player", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    @ResponseBody
+    public ResponseEntity addPlayers(@RequestPart("playerName") String playerName, @RequestPart("clubId") String clubId,
+                                     @AuthenticationPrincipal final UserDetails userDetails, @RequestPart("file") MultipartFile file) throws MyCustomException {
+        if (roleService.isAdmin(userDetails)) {
+            PlayerList player = new PlayerList();
+            player.setPlayerName(playerName);
+            player.setClubid(Integer.parseInt(clubId));
+            String fileName = playerService.addPlayer(player, file);
+            if (fileName != null) {
+                String fileDownLoadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("fantasyhelper/api/downloadFile/")
+                        .path(fileName).toUriString();
+               return  new ResponseEntity(new UploadFileResponse(fileName,
+                        fileDownLoadUrl,file.getContentType(),file.getSize(),playerName), HttpStatus.OK);
+            }
+        } else {
+            throw new MyCustomException("Sorry you Are not an Admin");
+        }
+        return new ResponseEntity("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
     @GetMapping("/downloadFile/{fileName}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws MyCustomException {
         Resource resource = clubService.loadFileAsResource(fileName);
@@ -85,16 +108,7 @@ public class Controller {
         return new ResponseEntity(this.clubService.getfileName(clubId),HttpStatus.OK);
     }
 
-    @PostMapping("insert/player")
-    public ResponseEntity addPlayers(@RequestBody PlayerList player,
-                                     @AuthenticationPrincipal final UserDetails userDetails) throws MyCustomException {
-        if (roleService.isAdmin(userDetails)) {
-            if (playerService.addPlayer(player)) {
-                return new ResponseEntity(player, HttpStatus.OK);
-            }
-        }
-        throw new MyCustomException("Sorry you Aere not an Admin");
-    }
+
 
     @GetMapping("get/player/{club_id}")
     public ResponseEntity getPlayersList(@AuthenticationPrincipal final  UserDetails userDetails, @PathVariable("club_id") Integer clubId) throws MyCustomException{
