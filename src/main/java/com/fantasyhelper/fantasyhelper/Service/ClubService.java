@@ -63,10 +63,10 @@ public class ClubService {
             throw new MyCustomException(clubname.getClubName() + " alrady exists");
         }
     }
+
     public Resource loadFileAsResource(String fileName) throws MyCustomException {
         try {
             Path filePath = this.fileSotageLocation.resolve(fileName).normalize();
-            System.out.println("My file path "+filePath);
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {
                 return resource;
@@ -77,4 +77,9 @@ public class ClubService {
             throw new MyCustomException("File not found " + fileName);
         }
     }
+
+    public String getfileName(int clubId) {
+        return clubsRepository.findById(clubId).getFileName();
+    }
+
 }

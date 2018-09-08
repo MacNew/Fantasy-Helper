@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import org.springframework.core.io.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -75,11 +74,15 @@ public class Controller {
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
-
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @GetMapping("/fileName/{clubId}")
+    public ResponseEntity gitFileName(@PathVariable int clubId) {
+        return new ResponseEntity(this.clubService.getfileName(clubId),HttpStatus.OK);
     }
 
     @PostMapping("insert/player")
@@ -125,5 +128,6 @@ public class Controller {
         }
         return new ResponseEntity("Sorry you are not a user ", HttpStatus.UNAUTHORIZED);
     }
+
 
 }
