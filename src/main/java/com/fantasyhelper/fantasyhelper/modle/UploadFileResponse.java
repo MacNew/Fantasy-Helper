@@ -6,6 +6,7 @@ public class UploadFileResponse {
     private String fileType;
     private String clubName;
     private String isCurrentPlaying;
+    private String playerName;
     private long size;
 
     public UploadFileResponse(String fileName, String fileDownloadUri, String fileType, long size,
@@ -16,6 +17,23 @@ public class UploadFileResponse {
         this.size = size;
         this.clubName = clubName;
         this.isCurrentPlaying = isCurrnetPlaying;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public UploadFileResponse(String fileName, String fileDownloadUri, String fileType, long size,
+                              String playerName) {
+        this.fileName = fileName;
+        this.fileDownloadUri = fileDownloadUri;
+        this.fileType = fileType;
+        this.size = size;
+        this.playerName = playerName;
     }
 
     public void setFileName(String fileName) {
