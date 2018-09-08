@@ -26,7 +26,10 @@ public class PlayerService {
         }
     }
 
-    public List<PlayerList> getPlayerList(Integer clubId) {
+    public List<PlayerList> getPlayerList(Integer clubId)
+    {
         return playerRepository.findByClubid(clubId);
     }
+
+
 }
