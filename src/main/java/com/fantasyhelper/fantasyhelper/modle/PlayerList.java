@@ -10,7 +10,7 @@ public class PlayerList {
     int id;
     @Column(name = "playerName", unique = true, nullable = true)
     private String playerName;
-    @Column(name="clubId", nullable = false)
+    @Column(name="clubId_refrence", nullable = false)
     Integer clubid;
     @Column(name = "filedownloadLink", nullable = true)
     private String fileDownloadLink;
@@ -65,5 +65,17 @@ public class PlayerList {
     public void setClubid(Integer clubid) {
         this.clubid = clubid;
     }
+
+    public ClubName getClub() {
+        return club;
+    }
+
+    public void setClub(ClubName club) {
+        this.club = club;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_id")
+    private ClubName club;
 
 }
