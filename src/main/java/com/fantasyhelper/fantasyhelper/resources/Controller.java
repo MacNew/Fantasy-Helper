@@ -125,5 +125,14 @@ public class Controller {
         }
         return new ResponseEntity("Sorry you are not a user ", HttpStatus.UNAUTHORIZED);
     }
+    @GetMapping("getclubName/{clubid}")
+    public ResponseEntity getClubList(@AuthenticationPrincipal final UserDetails userDetails ,@PathVariable String clubid) {
+        if (roleService.isUserOrAdmin(userDetails)) {
+            return new ResponseEntity(clubService.getClub(Integer.parseInt(clubid)), HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity(new MyCustomException("Cannot found server admin"), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

@@ -76,4 +76,8 @@ public class ClubService {
             throw new MyCustomException("File not found " + fileName);
         }
     }
+
+    public ClubName getClub(int club_id)  {
+        return clubsRepository.findById(club_id);
+    }
 }
