@@ -51,6 +51,7 @@ public class ClubService {
                     .path(fileName)
                     .toUriString());
             clubname.setFilepath(this.fileSotageLocation.resolve(fileName).normalize().toString());
+            clubname.setFileName(fileName);
             ClubName instance = clubsRepository.save(clubname);
             if (instance != null) {
                 return fileName; //String.valueOf(this.fileSotageLocation.resolve(fileName).normalize());
@@ -62,10 +63,10 @@ public class ClubService {
             throw new MyCustomException(clubname.getClubName() + " alrady exists");
         }
     }
+
     public Resource loadFileAsResource(String fileName) throws MyCustomException {
         try {
             Path filePath = this.fileSotageLocation.resolve(fileName).normalize();
-            System.out.println("My file path "+filePath);
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {
                 return resource;
