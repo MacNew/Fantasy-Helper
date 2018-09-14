@@ -62,6 +62,33 @@ public class Controller {
         return new ResponseEntity("Error",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @RequestMapping(value = "edit/clubs", method = RequestMethod.PUT, consumes = {"multipart/form-data"})
+    @ResponseBody
+    public ResponseEntity editClubs(@RequestPart("clubName")  String club,
+                                   @RequestPart("isPlaying") String isPlaying,
+                                   @RequestPart("clubId") String clubId,
+                                   @AuthenticationPrincipal final UserDetails userDetails,
+                                   @RequestPart("file")  MultipartFile file) throws MyCustomException {
+        if (roleService.isAdmin(userDetails)) {
+            ClubName clubName = new ClubName();
+            clubName.setClubName(club);
+            clubName.setId(Integer.parseInt(clubId));
+            clubName.setCurrentSeasonPlaying(Boolean.parseBoolean(isPlaying));
+            String fileName = clubService.addClubs(clubName, file);
+            if( fileName != null) {
+                String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("fantasyhelper/api/downloadFile/")
+                        .path(fileName)
+                        .toUriString();
+                return new ResponseEntity(new UploadFileResponse(fileName,
+                        fileDownloadUrl,file.getContentType(),file.getSize(),club,isPlaying), HttpStatus.OK);
+            }
+        }else {
+            throw new MyCustomException("Sorry you Are not an Admin");
+        }
+        return new ResponseEntity("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @RequestMapping(value ="insert/player", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     @ResponseBody
     public ResponseEntity addPlayers(@RequestPart("playerName") String playerName, @RequestPart("clubId") String clubId,
