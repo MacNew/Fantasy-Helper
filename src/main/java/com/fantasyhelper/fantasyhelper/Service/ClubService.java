@@ -81,4 +81,8 @@ public class ClubService {
     public ClubName getClub(int club_id)  {
         return clubsRepository.findById(club_id);
     }
+
+    public ClubName getfileName(int clubId) {
+        return clubsRepository.findById(clubId);
+    }
 }
