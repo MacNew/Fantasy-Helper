@@ -10,6 +10,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -84,5 +86,18 @@ public class ClubService {
 
     public ClubName getfileName(int clubId) {
         return clubsRepository.findById(clubId);
+    }
+
+    public boolean deleteClubs(String clubId) {
+        String fileName =  clubsRepository.findById(Integer.parseInt(clubId)).getFileName();
+        File file = new File(this.fileSotageLocation+"/"+fileName);
+        if (file.delete()) {
+            ClubName clubName = new ClubName();
+            clubName.setId(Integer.parseInt(clubId));
+            clubsRepository.delete(clubName);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

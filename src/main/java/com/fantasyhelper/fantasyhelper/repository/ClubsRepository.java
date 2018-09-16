@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface ClubsRepository extends JpaRepository<ClubName, Integer > {
     ClubName findById(int clubid);
+    ClubName removeById(int clubid);
+
+
+
 }
