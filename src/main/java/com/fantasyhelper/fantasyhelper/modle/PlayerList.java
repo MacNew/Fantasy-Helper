@@ -8,16 +8,38 @@ public class PlayerList {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
+
     @Column(name = "playerName", unique = true, nullable = true)
     private String playerName;
+
     @Column(name="clubId_refrence", nullable = false)
     Integer clubid;
+
     @Column(name = "filedownloadLink", nullable = true)
     private String fileDownloadLink;
+
     @Column(name = "filePath", nullable = true)
     private String filePath;
+
     @Column(name="fileName", nullable = true)
     private String fileName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_id")
+    private ClubName club;
+
+    @Column(name="position", nullable = true)
+    private String playerPostion;
+
+
+    public String getPlayerPostion() {
+        return playerPostion;
+    }
+
+    public void setPlayerPostion(String playerPostion) {
+        this.playerPostion = playerPostion;
+    }
+
     public int getId() {
         return id;
     }
@@ -74,8 +96,6 @@ public class PlayerList {
         this.club = club;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "club_id")
-    private ClubName club;
+
 
 }
