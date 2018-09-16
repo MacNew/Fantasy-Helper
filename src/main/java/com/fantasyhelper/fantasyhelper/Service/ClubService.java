@@ -3,7 +3,9 @@ package com.fantasyhelper.fantasyhelper.Service;
 import com.fantasyhelper.fantasyhelper.Exception.MyCustomException;
 import com.fantasyhelper.fantasyhelper.modle.ClubName;
 import com.fantasyhelper.fantasyhelper.config.FileStorageProperties;
+import com.fantasyhelper.fantasyhelper.modle.PlayerList;
 import com.fantasyhelper.fantasyhelper.repository.ClubsRepository;
+import com.fantasyhelper.fantasyhelper.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -24,6 +26,8 @@ import java.util.List;
 public class ClubService {
     @Autowired
     ClubsRepository clubsRepository;
+    @Autowired
+    PlayerRepository playerRepository;
     private  Path fileSotageLocation = null;
     @Autowired
     public ClubService(FileStorageProperties fileStorageProperties) throws MyCustomException{
@@ -95,6 +99,10 @@ public class ClubService {
             ClubName clubName = new ClubName();
             clubName.setId(Integer.parseInt(clubId));
             clubsRepository.delete(clubName);
+            List<PlayerList> playerLists = playerRepository.findByClubid(Integer.parseInt(clubId));
+            for (PlayerList player: playerLists) {
+                playerRepository.delete(player);
+            }
             return true;
         } else {
             return false;
