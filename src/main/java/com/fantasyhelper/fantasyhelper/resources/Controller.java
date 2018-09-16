@@ -89,6 +89,18 @@ public class Controller {
         return new ResponseEntity("Error",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @DeleteMapping("delete/club/{clubId}")
+    public ResponseEntity deleteClub(@AuthenticationPrincipal final UserDetails userDetails, @PathVariable String clubId) throws MyCustomException {
+         if (roleService.isAdmin(userDetails)) {
+              if (clubService.deleteClubs(clubId)) {
+                return new ResponseEntity("File deleted Sucessfully",HttpStatus.OK);
+              }
+         } else {
+            throw new MyCustomException("Sorry you Are not an Admin");
+         }
+        return new ResponseEntity("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @RequestMapping(value ="insert/player", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     @ResponseBody
     public ResponseEntity addPlayers(@RequestPart("playerName") String playerName, @RequestPart("clubId") String clubId,
