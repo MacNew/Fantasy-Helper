@@ -12,6 +12,18 @@ public class SeasonFirst {
     @Column(name = "clubId", unique = true)
     private  Integer clubId;
 
+    @Column(name = "seasonName")
+    private String seasonName;
+
+    public String getSeasonName() {
+        return seasonName;
+    }
+
+    public void setSeasonName(String seasonName) {
+        this.seasonName = seasonName;
+    }
+
+
     public Integer getId() {
         return id;
     }
