@@ -9,6 +9,37 @@ public class Season {
     @Column(name = "seasionId")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(name = "seasonName", unique = true, nullable = false)
+    private String seasionName;
+
+    @Column(name = "winerClubName", unique = true, nullable = false)
+    private String winerClubName;
+
+    @Column(name = "runnerUpClubName", unique = true, nullable = false)
+    private String runnerUpClubName;
+
+    @Column(name = "topScorer", unique = true, nullable = false)
+    private String topScorer;
+
+    @Column(name = "topGoalKepper", unique = true, nullable = false)
+    private String topGoalKepper;
+
+    @Column(name = "topDefender", unique = true, nullable = false)
+    private String topDefender;
+
+    @Column(name = "topMidFielder", unique = true, nullable = false)
+    private String topMidFielder;
+
+
+    public String getTopMidFielder() {
+        return topMidFielder;
+    }
+
+    public void setTopMidFielder(String topMidFielder) {
+        this.topMidFielder = topMidFielder;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -66,23 +97,6 @@ public class Season {
         this.topDefender = topDefender;
     }
 
-    @Column(name = "seasonName", unique = true, nullable = false)
-    private String seasionName;
-
-    @Column(name = "winerClubName", unique = true, nullable = false)
-    private String winerClubName;
-
-    @Column(name = "runnerUpClubName", unique = true, nullable = false)
-    private String runnerUpClubName;
-
-    @Column(name = "topScorer", unique = true, nullable = false)
-    private String topScorer;
-
-    @Column(name = "topGoalKepper", unique = true, nullable = false)
-    private String topGoalKepper;
-
-    @Column(name = "topDefender", unique = true, nullable = false)
-    private String topDefender;
 
 
 
