@@ -104,11 +104,13 @@ public class Controller {
     @RequestMapping(value ="insert/player", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     @ResponseBody
     public ResponseEntity addPlayers(@RequestPart("playerName") String playerName, @RequestPart("clubId") String clubId,
-                                     @AuthenticationPrincipal final UserDetails userDetails, @RequestPart("file") MultipartFile file) throws MyCustomException {
+                                     @AuthenticationPrincipal final UserDetails userDetails, @RequestPart("file") MultipartFile file,
+                                     @RequestPart("playerPosition") String playerPosition) throws MyCustomException {
         if (roleService.isAdmin(userDetails)) {
             PlayerList player = new PlayerList();
             player.setPlayerName(playerName);
             player.setClubid(Integer.parseInt(clubId));
+            player.setPlayerPosition(playerPosition);
             String fileName = playerService.addPlayer(player, file);
             if (fileName != null) {
                 String fileDownLoadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()

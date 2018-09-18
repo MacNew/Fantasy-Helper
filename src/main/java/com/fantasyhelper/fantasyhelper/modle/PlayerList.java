@@ -28,17 +28,19 @@ public class PlayerList {
     @JoinColumn(name = "club_id")
     private ClubName club;
 
-    @Column(name="position", nullable = true)
-    private String playerPostion;
-
-
-    public String getPlayerPostion() {
-        return playerPostion;
+    public String getPlayerPosition() {
+        return playerPosition;
     }
 
-    public void setPlayerPostion(String playerPostion) {
-        this.playerPostion = playerPostion;
+    public void setPlayerPosition(String playerPosition) {
+        this.playerPosition = playerPosition;
     }
+
+    @Column(name="playerPosition", nullable = true)
+    private String playerPosition;
+
+
+
 
     public int getId() {
         return id;
