@@ -63,4 +63,7 @@ public class PlayerService {
     }
 
 
+    public List<PlayerList> getForwardList(String position) {
+        return playerRepository.findByPlayerPosition(position);
+    }
 }
