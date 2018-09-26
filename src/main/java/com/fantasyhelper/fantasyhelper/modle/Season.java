@@ -9,36 +9,27 @@ public class Season {
     @Column(name = "seasionId")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "seasonName", unique = true, nullable = false)
-    private String seasionName;
 
-    @Column(name = "winerClubName", unique = true, nullable = false)
+    @Column(name = "seasonName", unique = true, nullable = false)
+    private String seasonName;
+
+    @Column(name = "winerClubName", nullable = false)
     private String winerClubName;
 
-    @Column(name = "runnerUpClubName", unique = true, nullable = false)
+    @Column(name = "runnerUpClubName", nullable = false)
     private String runnerUpClubName;
 
-    @Column(name = "topScorer", unique = true, nullable = false)
+    @Column(name = "topScorer", nullable = false)
     private String topScorer;
 
-    @Column(name = "topGoalKepper", unique = true, nullable = false)
+    @Column(name = "topGoalKepper", nullable = false)
     private String topGoalKepper;
 
-    @Column(name = "topDefender", unique = true, nullable = false)
+    @Column(name = "topDefender", nullable = false)
     private String topDefender;
 
-    @Column(name = "topMidFielder", unique = true, nullable = false)
+    @Column(name = "topMidFielder", nullable = false)
     private String topMidFielder;
-
-
-    public String getTopMidFielder() {
-        return topMidFielder;
-    }
-
-    public void setTopMidFielder(String topMidFielder) {
-        this.topMidFielder = topMidFielder;
-    }
-
 
 
     public Integer getId() {
@@ -49,13 +40,7 @@ public class Season {
         this.id = id;
     }
 
-    public String getSeasionName() {
-        return seasionName;
-    }
 
-    public void setSeasionName(String seasionName) {
-        this.seasionName = seasionName;
-    }
 
     public String getWinerClubName() {
         return winerClubName;
@@ -97,7 +82,19 @@ public class Season {
         this.topDefender = topDefender;
     }
 
+    public String getTopMidFielder() {
+        return topMidFielder;
+    }
 
+    public void setTopMidFielder(String topMidFielder) {
+        this.topMidFielder = topMidFielder;
+    }
 
+    public String getSeasonName() {
+        return seasonName;
+    }
 
+    public void setSeasonName(String seasonName) {
+        this.seasonName = seasonName;
+    }
 }
