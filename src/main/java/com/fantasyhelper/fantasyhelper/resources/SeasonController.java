@@ -21,10 +21,20 @@ public class SeasonController {
     @PostMapping("season/save")
     public ResponseEntity saveSeasonInformation(@RequestBody Season season, @AuthenticationPrincipal final UserDetails userDetails) {
         if (roleService.isAdmin(userDetails)) {
-            return new ResponseEntity(seasonService.saveSeason(season) != null ? season: new MyCustomException("Can't save your season"), HttpStatus.OK);
+            return new ResponseEntity(seasonService.saveSeason(season) != null ? season: new MyCustomException("Can't save your season"), seasonService.saveSeason(season) != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity(new MyCustomException("You are not Server Admin or User"), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("season/getAll")
+    public ResponseEntity getAll(@AuthenticationPrincipal final UserDetails userDetails) {
+        if (roleService.isUserOrAdmin(userDetails)) {
+            return new ResponseEntity(seasonService.getAll() != null ? seasonService.getAll(): new MyCustomException("Sorry, data is not available"), seasonService.getAll() != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(new MyCustomException("You are not Server Admin or User "), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 
