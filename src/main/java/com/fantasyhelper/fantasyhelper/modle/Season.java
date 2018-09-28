@@ -31,7 +31,6 @@ public class Season {
     @Column(name = "topMidFielder", nullable = false)
     private String topMidFielder;
 
-
     public Integer getId() {
         return id;
     }
