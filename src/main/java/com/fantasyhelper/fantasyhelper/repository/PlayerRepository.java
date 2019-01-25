@@ -8,4 +8,5 @@ import java.util.List;
 public interface PlayerRepository extends JpaRepository<PlayerList, Integer > {
      List<PlayerList> findByClubid(int clubid);
      List<PlayerList> findByPlayerPosition(String position);
+     List<PlayerList>findByPlayerPositionAndClubid(String position, int clubid);
 }

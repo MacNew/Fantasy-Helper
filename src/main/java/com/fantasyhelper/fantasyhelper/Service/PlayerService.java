@@ -66,4 +66,8 @@ public class PlayerService {
     public List<PlayerList> getForwardList(String position) {
         return playerRepository.findByPlayerPosition(position);
     }
+
+    public List<PlayerList> getPlayerFromClubAndPosition(Integer cluId, String position) {
+       return  playerRepository.findByPlayerPositionAndClubid(position, cluId);
+    }
 }

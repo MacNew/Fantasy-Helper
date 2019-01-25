@@ -21,12 +21,23 @@ public class Player {
     @Autowired
     RoleService roleService;
     @GetMapping("getplayer/{position}")
-    public ResponseEntity getAlltheForwards(@AuthenticationPrincipal final UserDetails userDetails, @PathVariable String position) throws MyCustomException {
+    public ResponseEntity getPlayerFromPosition(@AuthenticationPrincipal final UserDetails userDetails, @PathVariable String position) throws MyCustomException {
 
         if (roleService.isUserOrAdmin(userDetails)) {
             return new ResponseEntity(playerService.getForwardList(position), HttpStatus.OK);
         } else {
-            return new ResponseEntity(new MyCustomException("You are not Server Admin or User"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new MyCustomException("You are not Server Admin or User"),HttpStatus.FORBIDDEN);
         }
     }
+
+    @GetMapping("getPlayerFromClubAndPosition/{position}/{clubId}")
+    public ResponseEntity getPlayerFromClubAndPosition(@AuthenticationPrincipal final  UserDetails userDetails, @PathVariable String position, @PathVariable String clubId) throws MyCustomException {
+        if (roleService.isAdmin(userDetails)) {
+            return new ResponseEntity(playerService.getPlayerFromClubAndPosition(Integer.parseInt(clubId), position), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(new MyCustomException("You are not Server Admin"), HttpStatus.FORBIDDEN);
+        }
+
+    }
+
 }
