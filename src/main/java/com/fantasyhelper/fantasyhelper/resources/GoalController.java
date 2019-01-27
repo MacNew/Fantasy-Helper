@@ -18,12 +18,28 @@ public class GoalController {
     GoalUpdateRepository repository;
     @Autowired
     RoleService roleService;
+
     @PostMapping("insert/goal")
     public ResponseEntity saveGoalInformation(@RequestBody GoalUpdate goalUpdate, @AuthenticationPrincipal final UserDetails userDetails) {
         if (roleService.isAdmin(userDetails)) {
             return new ResponseEntity(repository.save(goalUpdate), HttpStatus.OK);
         } else {
             return new ResponseEntity(new MyCustomException("You are not a server Admin"), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping("getGoalInformation/{clubId}/{seasonId}/{playerId}")
+    public ResponseEntity getGoalInformation(@AuthenticationPrincipal final UserDetails userDetails,
+                                             @PathVariable String clubId,
+                                             @PathVariable String playerId,
+                                             @PathVariable String seasonId) {
+        if (roleService.isAdmin(userDetails)) {
+            return new ResponseEntity(repository.findByClubIdAndSeasonIdAndPlayerId(Integer.parseInt(clubId)
+            , Integer.parseInt(seasonId), Integer.parseInt(playerId)
+            ), HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity(new MyCustomException("Your are not a server Admin"), HttpStatus.FORBIDDEN);
         }
     }
 }
