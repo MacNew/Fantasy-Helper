@@ -17,7 +17,8 @@ public class GoalUpdate {
     private Integer homeGoalScore;
     @Column(name = "away_goal_score")
     private Integer awatyGoalScore;
-    ///Home ma goal khako ane away ma teyo goal khako paxe
+
+
 
 
     public Integer getId() {
