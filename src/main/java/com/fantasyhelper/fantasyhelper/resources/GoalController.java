@@ -1,6 +1,7 @@
 package com.fantasyhelper.fantasyhelper.resources;
 
 import com.fantasyhelper.fantasyhelper.Exception.MyCustomException;
+import com.fantasyhelper.fantasyhelper.Service.GoalService;
 import com.fantasyhelper.fantasyhelper.config.RoleService;
 import com.fantasyhelper.fantasyhelper.modle.GoalUpdate;
 import com.fantasyhelper.fantasyhelper.repository.GoalUpdateRepository;
@@ -18,6 +19,9 @@ public class GoalController {
     GoalUpdateRepository repository;
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    GoalService goalService;
 
     @PostMapping("insert/goal")
     public ResponseEntity saveGoalInformation(@RequestBody GoalUpdate goalUpdate, @AuthenticationPrincipal final UserDetails userDetails) {
@@ -39,7 +43,20 @@ public class GoalController {
             ), HttpStatus.OK);
 
         } else {
-            return new ResponseEntity(new MyCustomException("Your are not a server Admin"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity(new MyCustomException("You are not a server Admin"), HttpStatus.FORBIDDEN);
         }
     }
+
+    @GetMapping("getGoalInformation/{seasonId}/{playerId}")
+    public ResponseEntity getGoalInformation(@AuthenticationPrincipal final UserDetails userDetails, @PathVariable String seasonId, @PathVariable String playerId) {
+         if (roleService.isUserOrAdmin(userDetails)) {
+             return new ResponseEntity(goalService.findGoalInformationofAllClubs(Integer.parseInt(seasonId), Integer.parseInt(playerId)), HttpStatus.OK);
+         } else {
+             return new ResponseEntity(new MyCustomException("You are not a valid User"), HttpStatus.FORBIDDEN);
+         }
+    }
+
+
+
+
 }
